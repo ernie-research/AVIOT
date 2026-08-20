@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aviot"
+version = "0.1.0"
+description = "Aggregating Visual Information with Optimal Transport for VideoLM token compression"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{name = "AVIOT Authors"}]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "accelerate>=1.0,<2",
+  "av>=12,<17",
+  "decord>=0.6,<0.7",
+  "numpy>=1.24,<3",
+  "opencv-python-headless>=4.8,<5",
+  "Pillow>=10,<13",
+  "PyYAML>=6,<7",
+  "safetensors>=0.4,<1",
+  "torch>=2.4,<3",
+  "transformers>=4.56,<5",
+]
+
+[project.optional-dependencies]
+train = ["deepspeed>=0.15,<1", "wandb>=0.18,<1"]
+flash = ["flash-attn>=2.6,<3"]
+
+[project.scripts]
+aviot-train = "aviot.training.train:main"
+aviot-infer = "aviot.inference:main"
+aviot-evaluate = "aviot.evaluation.evaluate:main"
+
+[tool.setuptools.packages.find]
+include = ["aviot*"]

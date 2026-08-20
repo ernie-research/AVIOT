@@ -1,0 +1,7 @@
+AVIOT
+Copyright 2026 AVIOT Authors
+
+This project builds on the Qwen2 and SigLIP implementations provided by
+Hugging Face Transformers (Apache License 2.0) and on the LLaVA-NeXT /
+LLaVA-Video model family (Apache License 2.0). Model checkpoints and datasets
+remain subject to their respective licenses and terms of use.

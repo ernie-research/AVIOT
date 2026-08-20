@@ -1,0 +1,39 @@
+model:
+  checkpoint: checkpoints/aviot
+  local_files_only: true
+  torch_dtype: bfloat16
+  attention: flash_attention_2
+  initialize_missing_aviot: false
+
+data:
+  annotations: examples/train.jsonl
+  video_root: examples/videos
+  fps: 2
+  max_frames: 224
+  force_uniform: false
+  seed: 42
+
+optimization:
+  output_dir: outputs/aviot
+  max_steps: 10903
+  num_train_epochs: 10
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4
+  learning_rate: 0.00001
+  weight_decay: 0.0
+  warmup_ratio: 0.03
+  lr_scheduler_type: cosine
+  save_steps: 500
+  save_total_limit: 10
+  logging_steps: 1
+  dataloader_num_workers: 4
+  model_max_length: 32768
+  bf16: true
+  tf32: true
+  gradient_checkpointing: true
+  gradient_checkpointing_use_reentrant: true
+  deepspeed: configs/deepspeed_zero1.json
+  report_to: none
+  run_name: aviot
+  seed: 42
+  dataloader_drop_last: true
