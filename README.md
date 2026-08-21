@@ -41,6 +41,7 @@ https://github.com/user-attachments/assets/e004aaf0-c72d-4c1b-be35-529d21cc362a
 
 ## 📌 TODO
 
+- [ ] Release the AVIOT paper.
 - [ ] Release the AVIOT model weights.
 
 ## 🛠️ Environment
