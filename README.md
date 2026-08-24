@@ -4,7 +4,11 @@
 Aggregating Visual Information with Optimal Transport for VideoLM Token Compression
 </h2>
 
-[![arXiv](https://img.shields.io/badge/arXiv-2608.20473-b31b1b.svg)](https://arxiv.org/abs/2608.20473)
+<p align="center">
+  <a href="https://arxiv.org/abs/2608.20473">
+    <img src="https://img.shields.io/badge/Paper-arXiv%3A2608.20473-b31b1b.svg" alt="arXiv Paper"/>
+  </a>
+</p>
 
 </div>
 
