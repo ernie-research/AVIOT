@@ -4,6 +4,8 @@
 Aggregating Visual Information with Optimal Transport for VideoLM Token Compression
 </h2>
 
+[![arXiv](https://img.shields.io/badge/arXiv-2608.20473-b31b1b.svg)](https://arxiv.org/abs/2608.20473)
+
 </div>
 
 ## 📖 Abstract
@@ -41,7 +43,7 @@ https://github.com/user-attachments/assets/e004aaf0-c72d-4c1b-be35-529d21cc362a
 
 ## 📌 TODO
 
-- [ ] Release the AVIOT paper.
+- [x] Release the AVIOT paper.
 - [ ] Release the AVIOT model weights.
 
 ## 🛠️ Environment
@@ -177,6 +179,22 @@ The default configuration uses progressive ratios from 2 to 10 during training, 
 segments, global/medium/local spatial blocks of `27/9/3`, BF16, FlashAttention 2, ZeRO-1, a
 learning rate of `1e-5`, cosine decay, and a 3% warmup. The target cardinality remains directly
 controllable during inference, including ratios outside the training schedule.
+
+## 📝 Citation
+
+If you find AVIOT useful in your research, please cite our paper:
+
+```bibtex
+@misc{yin2026aggregatingvisualinformationoptimal,
+      title={Aggregating Visual Information with Optimal Transport for VideoLM Token Compression},
+      author={Wenti Yin and Xiaotian Han and Junyuan Shang and Yuchen Ding and Shuohuan Wang and Dianhai Yu and Changxin Gao and Nong Sang},
+      year={2026},
+      eprint={2608.20473},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.20473},
+}
+```
 
 ## 📜 License
 
