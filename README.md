@@ -93,8 +93,6 @@ checkpoints/aviot/
     preprocessor_config.json
 ```
 
-No additional visual checkpoint or preparation step is required.
-
 The released checkpoint is published at
 [`ernie-research/AVIOT`](https://huggingface.co/ernie-research/AVIOT). Every `--checkpoint`
 argument accepts either a local directory or this Hugging Face repository ID, which is
