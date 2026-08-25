@@ -1,7 +1,7 @@
 <div align="center">
 
 <h2 align="center">
-Aggregating Visual Information with Optimal Transport for VideoLM Token Compression
+<a href="https://ernie-research.github.io/AVIOT/">Aggregating Visual Information with Optimal Transport for VideoLM Token Compression</a>
 </h2>
 
 <p align="center">
