@@ -4,6 +4,8 @@
 <a href="https://ernie-research.github.io/AVIOT/">Aggregating Visual Information with Optimal Transport for VideoLM Token Compression</a>
 </h2>
 
+<h5 align="center">If you like our project, please give us a star ⭐ on GitHub for latest update.</h5>
+
 <p align="center">
   <a href="https://ernie-research.github.io/AVIOT/">
     <img src="https://img.shields.io/badge/Homepage-Project%20Page-1f6feb.svg" alt="AVIOT Homepage"/>
@@ -17,6 +19,11 @@
 </p>
 
 </div>
+
+## 📰 News
+
+* **[2026.08.25]** 🔥 We release the AVIOT model weights at [🤗 ernie-research/AVIOT](https://huggingface.co/ernie-research/AVIOT). Give it a try!
+* **[2026.08.21]** 🔥 Our training and inference code is available.
 
 ## 📖 Abstract
 
