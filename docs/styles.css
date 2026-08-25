@@ -302,6 +302,22 @@ main:focus {
   gap: 0.7rem;
 }
 
+.nav-models {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.3rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.75rem;
+  font-weight: 620;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.nav-models:hover {
+  color: #fff;
+}
+
 .icon-link,
 .nav-paper {
   display: inline-flex;
@@ -2295,6 +2311,11 @@ td.better {
   .nav-paper {
     min-height: 2.55rem;
     padding: 0.5rem 0.72rem;
+  }
+
+  .nav-models {
+    min-height: 2.55rem;
+    font-size: 0.72rem;
   }
 
   .icon-link {
