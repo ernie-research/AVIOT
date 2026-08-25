@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080a0f" />
+    <meta
+      name="description"
+      content="AVIOT constructs compact, question-aware video representations through optimal transport across temporal and spatial granularities."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="AVIOT — Aggregating Visual Information with Optimal Transport"
+    />
+    <meta
+      property="og:description"
+      content="Optimal-transport representation construction for VideoLM token compression."
+    />
+    <meta
+      property="og:image"
+      content="public/assets/video/aviot-demo-poster.png"
+    />
+    <title>AVIOT — Optimal Transport for VideoLM Token Compression</title>
+    <link rel="icon" href="public/assets/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "name": "Aggregating Visual Information with Optimal Transport for VideoLM Token Compression",
+        "datePublished": "2026",
+        "identifier": "arXiv:2608.20473",
+        "url": "https://arxiv.org/abs/2608.20473",
+        "codeRepository": "https://github.com/ernie-research/AVIOT",
+        "author": [
+          { "@type": "Person", "name": "Wenti Yin" },
+          { "@type": "Person", "name": "Xiaotian Han" },
+          { "@type": "Person", "name": "Junyuan Shang" },
+          { "@type": "Person", "name": "Yuchen Ding" },
+          { "@type": "Person", "name": "Shuohuan Wang" },
+          { "@type": "Person", "name": "Dianhai Yu" },
+          { "@type": "Person", "name": "Changxin Gao" },
+          { "@type": "Person", "name": "Nong Sang" }
+        ]
+      }
+    </script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="AVIOT home">
+          <img class="brand-mark" src="public/assets/brand/favicon.svg" width="24" height="24" alt="" aria-hidden="true" />
+          <span>AVIOT</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#idea">Idea</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#evidence">Evidence</a>
+          <a href="#citation">Citation</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a
+            class="icon-link"
+            href="https://github.com/ernie-research/AVIOT"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open AVIOT code on GitHub"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2.5a9.75 9.75 0 0 0-3.08 19c.49.09.67-.21.67-.47v-1.87c-2.74.6-3.32-1.16-3.32-1.16-.45-1.14-1.09-1.45-1.09-1.45-.9-.61.07-.6.07-.6 1 .07 1.52 1.02 1.52 1.02.88 1.52 2.32 1.08 2.88.83.09-.64.35-1.08.63-1.33-2.18-.25-4.48-1.09-4.48-4.82 0-1.07.38-1.94 1.02-2.62-.11-.25-.45-1.24.09-2.59 0 0 .83-.26 2.68 1a9.3 9.3 0 0 1 4.88 0c1.86-1.26 2.68-1 2.68-1 .54 1.35.2 2.34.1 2.59.63.68 1.01 1.55 1.01 2.62 0 3.74-2.3 4.56-4.49 4.81.36.31.67.91.67 1.84v2.73c0 .26.18.57.68.47A9.75 9.75 0 0 0 12 2.5Z"
+              />
+            </svg>
+          </a>
+          <a
+            class="nav-paper"
+            href="https://arxiv.org/abs/2608.20473"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Paper <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit--one" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit--two" aria-hidden="true"></div>
+
+        <div class="hero-copy reveal">
+          <p class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            VideoLM token compression
+          </p>
+          <h1 id="hero-title">
+            <span class="hero-title-line">Aggregating Visual</span>
+            <span class="hero-title-line">Information</span>
+            <span class="hero-title-secondary">with <span class="hero-title-ot">Optimal Transport.</span></span>
+          </h1>
+          <p class="hero-deck">
+            AVIOT constructs compact video representations by transporting dense
+            frame observations onto a prescribed set of supports—conditioned by
+            the question and resolved across spatial granularities.
+          </p>
+
+          <div class="hero-actions" role="group" aria-label="Project links">
+            <a
+              class="button button--light"
+              href="https://arxiv.org/abs/2608.20473"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read the paper
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 10h9M10.5 6.5 14 10l-3.5 3.5" />
+              </svg>
+            </a>
+            <a
+              class="button button--ghost"
+              href="https://github.com/ernie-research/AVIOT"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View code
+            </a>
+            <a class="text-link text-link--hero" href="#demo">
+              Watch overview <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <div class="hero-authors" role="group" aria-label="Paper authors">
+            <p class="hero-author-list">
+              <span class="author-name">Wenti Yin<sup>1,2</sup></span>,
+              <span class="author-name">Xiaotian Han<sup>2</sup></span>,
+              <span class="author-name">Junyuan Shang<sup>2</sup></span>,
+              <span class="author-name">Yuchen Ding<sup>2</sup></span>,
+              <span class="author-name">Shuohuan Wang<sup>2</sup></span>,
+              <span class="author-name">Dianhai Yu<sup>2</sup></span>,
+              <span class="author-name">Changxin Gao<sup>1</sup></span>,
+              <span class="author-name">Nong Sang<sup>1</sup></span>
+            </p>
+            <p class="affiliations">
+              <span class="affiliation-name"><sup>1</sup> Huazhong University of Science and Technology</span>
+              <span class="affiliation-name"><sup>2</sup> Baidu, Inc.</span>
+            </p>
+          </div>
+        </div>
+
+        <figure
+          class="hero-transport"
+          data-transport-visual
+          aria-labelledby="transport-title transport-caption"
+        >
+          <div class="transport-heading">
+            <span class="transport-index">OT / 01</span>
+            <span id="transport-title">Question-conditioned construction</span>
+          </div>
+
+          <svg
+            class="transport-svg"
+            viewBox="0 0 420 300"
+            role="img"
+            aria-label="Dense source observations transported through global, medium, and local paths into compact target supports"
+          >
+            <g class="transport-question">
+              <rect x="132" y="12" width="156" height="32" rx="16" />
+              <text x="210" y="32" text-anchor="middle">QUESTION</text>
+              <path d="M210 44 C210 82 210 154 210 218" />
+              <text class="transport-note" x="222" y="66">modulates cost</text>
+            </g>
+
+            <text class="transport-label" x="24" y="78">SOURCE MEASURE</text>
+            <text class="transport-label" x="321" y="78">TARGET SUPPORTS</text>
+            <path class="transport-axis" d="M48 96 L48 238" />
+
+            <g transform="translate(48 100)"><g class="transport-source" style="--delay:.52s"><circle r="4" /></g></g>
+            <g transform="translate(48 126)"><g class="transport-source" style="--delay:.58s"><circle r="4" /></g></g>
+            <g transform="translate(48 152)"><g class="transport-source" style="--delay:.64s"><circle r="4" /></g></g>
+            <g transform="translate(48 178)"><g class="transport-source" style="--delay:.70s"><circle r="4" /></g></g>
+            <g transform="translate(48 204)"><g class="transport-source" style="--delay:.76s"><circle r="4" /></g></g>
+            <g transform="translate(48 230)"><g class="transport-source" style="--delay:.82s"><circle r="4" /></g></g>
+
+            <g class="transport-coupling">
+              <path class="transport-path" d="M52 100 C118 94 152 104 207 112 C275 122 310 105 354 108" />
+              <path class="transport-path" d="M52 126 C124 128 154 153 207 165 C271 178 306 162 354 152" />
+              <path class="transport-path" d="M52 152 C120 150 163 132 207 112 C266 84 310 130 354 152" />
+              <path class="transport-path" d="M52 178 C125 184 163 170 207 165 C270 157 316 185 354 196" />
+              <path class="transport-path" d="M52 204 C115 215 155 222 207 218 C270 214 310 210 354 196" />
+              <path class="transport-path" d="M52 230 C120 234 160 224 207 218 C270 210 316 232 354 240" />
+
+              <path class="transport-flow transport-flow--global" pathLength="100" d="M52 100 C118 94 152 104 207 112 C275 122 310 105 354 108" />
+              <path class="transport-flow transport-flow--medium" pathLength="100" d="M52 178 C125 184 163 170 207 165 C270 157 316 185 354 196" />
+              <path class="transport-flow transport-flow--local" pathLength="100" d="M52 230 C120 234 160 224 207 218 C270 210 316 232 354 240" />
+            </g>
+
+            <g transform="translate(210 112)">
+              <g class="transport-branch transport-branch--global" style="--delay:1.05s">
+                <circle r="6" /><text x="13" y="4">G</text>
+              </g>
+            </g>
+            <g transform="translate(210 165)">
+              <g class="transport-branch transport-branch--medium" style="--delay:1.28s">
+                <circle r="6" /><text x="13" y="4">M</text>
+              </g>
+            </g>
+            <g transform="translate(210 218)">
+              <g class="transport-branch transport-branch--local" style="--delay:1.51s">
+                <circle r="6" /><text x="13" y="4">L</text>
+              </g>
+            </g>
+
+            <g transform="translate(354 94)">
+              <g class="transport-support" style="--delay:2.05s">
+                <rect width="28" height="28" rx="3" />
+                <path d="M9.3 0V28M18.6 0V28M0 9.3H28M0 18.6H28" />
+              </g>
+            </g>
+            <g transform="translate(354 138)">
+              <g class="transport-support" style="--delay:2.24s">
+                <rect width="28" height="28" rx="3" />
+                <path d="M9.3 0V28M18.6 0V28M0 9.3H28M0 18.6H28" />
+              </g>
+            </g>
+            <g transform="translate(354 182)">
+              <g class="transport-support" style="--delay:2.43s">
+                <rect width="28" height="28" rx="3" />
+                <path d="M9.3 0V28M18.6 0V28M0 9.3H28M0 18.6H28" />
+              </g>
+            </g>
+            <g transform="translate(354 226)">
+              <g class="transport-support" style="--delay:2.62s">
+                <rect width="28" height="28" rx="3" />
+                <path d="M9.3 0V28M18.6 0V28M0 9.3H28M0 18.6H28" />
+              </g>
+            </g>
+
+            <text class="transport-footer-label" x="24" y="274">dense observations</text>
+            <text class="transport-footer-label" x="318" y="274">K compact supports</text>
+          </svg>
+
+          <figcaption id="transport-caption">
+            <span class="transport-legend">
+              <i class="branch-dot branch-dot--global" aria-hidden="true"></i>Global
+              <i class="branch-dot branch-dot--medium" aria-hidden="true"></i>Medium
+              <i class="branch-dot branch-dot--local" aria-hidden="true"></i>Local
+            </span>
+            <span class="transport-state">transport active</span>
+          </figcaption>
+        </figure>
+
+        <div class="demo-wrap reveal" id="demo">
+          <div class="demo-heading">
+            <div>
+              <p class="section-label section-label--dark">Overview film</p>
+              <h2>From dense video to compact visual evidence.</h2>
+            </div>
+          </div>
+
+          <figure class="demo-figure">
+            <div class="video-frame">
+              <video
+                data-smart-video
+                controls
+                muted
+                playsinline
+                preload="metadata"
+                poster="public/assets/video/aviot-demo-poster.webp"
+                width="1280"
+                height="720"
+                aria-describedby="demo-caption"
+              >
+                <source
+                  src="public/assets/video/aviot-demo-720p.webm"
+                  type="video/webm"
+                />
+                <source
+                  src="public/assets/video/aviot-demo-720p.mp4"
+                  type="video/mp4"
+                />
+                <track
+                  kind="captions"
+                  src="public/assets/video/aviot-demo.en.vtt"
+                  srclang="en"
+                  label="English"
+                />
+                Your browser does not support HTML video. You can read the
+                transcript immediately below.
+              </video>
+            </div>
+            <figcaption id="demo-caption">
+              The full AVIOT chain on a real eight-minute case. The language model
+              appears explicitly before the decoded answer; compact supports remain
+              visual evidence.
+            </figcaption>
+          </figure>
+
+          <ol class="process-line" aria-label="Demonstration processing sequence">
+            <li>
+              <span class="process-index">01</span>
+              <span>224 video observations</span>
+            </li>
+            <li>
+              <span class="process-index">02</span>
+              <span>Question-conditioned OT</span>
+            </li>
+            <li>
+              <span class="process-index">03</span>
+              <span class="branch-inline">
+                <i class="branch-dot branch-dot--global" aria-hidden="true"></i>
+                Global
+                <i class="branch-dot branch-dot--medium" aria-hidden="true"></i>
+                Medium
+                <i class="branch-dot branch-dot--local" aria-hidden="true"></i>
+                Local
+              </span>
+            </li>
+            <li>
+              <span class="process-index">04</span>
+              <span>28 supports + question</span>
+            </li>
+            <li>
+              <span class="process-index">05</span>
+              <span>Language model</span>
+            </li>
+            <li>
+              <span class="process-index">06</span>
+              <span>Decoded answer</span>
+            </li>
+          </ol>
+
+          <details class="transcript">
+            <summary>Read the transcript</summary>
+            <ol>
+              <li><time>00:00</time> An 8-minute video becomes 224 sampled observations.</li>
+              <li><time>00:06</time> The question defines what evidence matters.</li>
+              <li>
+                <time>00:11</time> Question-conditioned Optimal Transport couples
+                224 observations to 28 compact supports.
+              </li>
+              <li>
+                <time>00:19</time> Global, medium, and local OT paths resolve
+                correspondence from whole frames to fine actor–object regions.
+              </li>
+              <li>
+                <time>00:29</time> The three paths construct the same compact
+                feature support, whose provenance traces back to real evidence.
+              </li>
+              <li>
+                <time>00:40</time> The language model decodes the question and 28
+                supports: installing wooden boards.
+              </li>
+            </ol>
+          </details>
+        </div>
+      </section>
+
+      <section class="section section--paper" id="idea" aria-labelledby="idea-title">
+        <div class="section-shell">
+          <header class="section-intro section-intro--idea reveal">
+            <p class="section-label">01 · Reframing compression</p>
+            <h2 id="idea-title">
+              <span class="display-line-wide">Compression should construct,</span>
+              <span class="display-line-wide">not merely remove.</span>
+            </h2>
+            <p>
+              Selection keeps a subset; learned bottlenecks map features into
+              outputs. AVIOT instead asks how a compact target measure should
+              represent dense observations as a whole.
+            </p>
+          </header>
+
+          <div class="idea-layout">
+            <figure class="paper-figure reveal">
+              <img
+                src="public/assets/figures/motivation-paper.png"
+                width="1185"
+                height="707"
+                loading="lazy"
+                decoding="async"
+                alt="Comparison of source-side compression with AVIOT's source-to-target optimal transport construction."
+              />
+              <figcaption>
+                <span class="caption-copy">
+                  The coupling shows how source-frame information jointly constructs
+                  the compact support set.
+                </span>
+                <a
+                  href="public/assets/figures/motivation-paper.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >Open figure <span aria-hidden="true">↗</span></a>
+              </figcaption>
+            </figure>
+
+            <div class="measure-notes reveal">
+              <dl>
+                <div>
+                  <dt>Source measure</dt>
+                  <dd>Dense frame observations that retain broad temporal coverage.</dd>
+                </div>
+                <div>
+                  <dt>Target measure</dt>
+                  <dd>A compact target measure with a prescribed cardinality <em>K</em>.</dd>
+                </div>
+                <div>
+                  <dt>Transport coupling</dt>
+                  <dd>
+                    A joint source-to-target plan whose normalized incoming mass
+                    constructs every support by barycentric aggregation.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div class="contribution-grid" role="group" aria-label="Paper contributions">
+            <article class="reveal">
+              <span>01</span>
+              <h3>Construct, don’t merely select</h3>
+              <p>
+                The OT coupling constructs compact supports from the dense source
+                distribution instead of merely choosing which observations survive.
+              </p>
+            </article>
+            <article class="reveal">
+              <span>02</span>
+              <h3>Adapt to task and space</h3>
+              <p>
+                The question controls temporal capacity and transport cost, while
+                spatial granularity determines where correspondence is estimated.
+              </p>
+            </article>
+            <article class="reveal">
+              <span>03</span>
+              <h3>Remain strong under compression</h3>
+              <p>
+                Across benchmarks and ratios, AVIOT preserves competitive video
+                understanding while substantially reducing visual-token context.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--white" id="method" aria-labelledby="method-title">
+        <div class="section-shell">
+          <header class="section-intro section-intro--split reveal">
+            <div>
+              <p class="section-label">02 · Method</p>
+              <h2 id="method-title">
+                <span class="display-line-wide">One OT construction,</span>
+                <span class="display-line-wide">adapted along <span class="keep-together">two axes.</span></span>
+              </h2>
+            </div>
+            <div>
+              <p>
+                AVIOT allocates support capacity over time, then estimates
+                question-conditioned correspondence at complementary spatial
+                resolutions. Aligned representations are adaptively fused before
+                multimodal projection and LLM decoding.
+              </p>
+              <div class="branch-legend" role="group" aria-label="Spatial transport branches">
+                <span><i class="branch-dot branch-dot--global" aria-hidden="true"></i>Global · 1 region</span>
+                <span><i class="branch-dot branch-dot--medium" aria-hidden="true"></i>Medium · 9 regions</span>
+                <span><i class="branch-dot branch-dot--local" aria-hidden="true"></i>Local · 81 regions</span>
+              </div>
+            </div>
+          </header>
+
+          <figure class="framework-figure reveal">
+            <div class="figure-surface">
+              <img
+                src="public/assets/figures/framework-paper.png"
+                width="1840"
+                height="894"
+                loading="lazy"
+                decoding="async"
+                alt="AVIOT framework from video and question encoding through support allocation, multigranularity optimal transport, fusion, projection, and LLM decoding."
+              />
+            </div>
+            <figcaption>
+              <span class="caption-copy">
+                AVIOT constructs supports through transport, then projects them for
+                LLM decoding.
+              </span>
+              <a
+                href="public/assets/figures/framework-paper.png"
+                target="_blank"
+                rel="noreferrer"
+              >Open figure <span aria-hidden="true">↗</span></a>
+            </figcaption>
+          </figure>
+
+          <ol class="method-steps">
+            <li class="reveal">
+              <span class="step-number">01</span>
+              <h3>Form the measures</h3>
+              <p>
+                Encoded frame grids form source observations. Temporal segments
+                share a total budget of <em>K</em> <span class="keep-together">target supports.</span>
+              </p>
+            </li>
+            <li class="reveal">
+              <span class="step-number">02</span>
+              <h3>Condition the transport</h3>
+              <p>
+                The question changes transport cost and directs support capacity
+                toward relevant moments.
+              </p>
+            </li>
+            <li class="reveal">
+              <span class="step-number">03</span>
+              <h3>Construct and fuse</h3>
+              <p>
+                Global, medium, and local plans construct aligned spatial features;
+                adaptive fusion combines evidence across scales.
+              </p>
+            </li>
+            <li class="reveal">
+              <span class="step-number">04</span>
+              <h3>Decode with the LLM</h3>
+              <p>
+                After multimodal projection, compact visual supports join the
+                question to condition <span class="keep-together">LLM decoding.</span>
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--ink" id="results" aria-labelledby="results-title">
+        <div class="section-shell">
+          <header class="section-intro section-intro--dark reveal">
+            <p class="section-label section-label--dark">03 · Results</p>
+            <h2 id="results-title">Measured across benchmarks and compression ratios.</h2>
+            <p>
+              Results separate two settings: ten benchmarks across
+              <span class="keep-together">open-source</span> 7B VideoLMs, and
+              five benchmarks isolating compression on
+              <span class="keep-together">LLaVA-Video-7B</span> with 64 frames.
+            </p>
+          </header>
+
+          <div class="evaluation-grid" aria-label="Evaluation scopes and headline results">
+            <article class="evaluation-card evaluation-card--published reveal">
+              <h3 class="evaluation-kicker">Published comparison</h3>
+              <p class="evaluation-primary">
+                <strong>10</strong>
+                <span>benchmarks</span>
+              </p>
+              <p class="evaluation-meta">
+                Open-source 7B VideoLMs · AVIOT reported at
+                <span class="keep-together"><em>r</em> = 4</span>
+              </p>
+              <a class="evaluation-jump" href="#benchmark-matrix">
+                Full score matrix <span aria-hidden="true">↓</span>
+              </a>
+            </article>
+            <article class="evaluation-card evaluation-card--controlled reveal">
+              <h3 class="evaluation-kicker">Controlled compression</h3>
+              <p class="evaluation-primary">
+                <strong>5</strong>
+                <span>benchmarks</span>
+              </p>
+              <p class="evaluation-meta">Same LLaVA-Video-7B backbone · 64 frames</p>
+              <div class="evaluation-pair">
+                <div class="comparison-metric">
+                  <strong>+2.36</strong>
+                  <span>mean vs. uncompressed</span>
+                  <small><em>r</em> = 2 · 50.0% token retention</small>
+                </div>
+                <div class="comparison-metric">
+                  <strong>−1.12</strong>
+                  <span>mean vs. uncompressed</span>
+                  <small><em>r</em> = 10 · 10.9% token retention</small>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="results-table-heading reveal">
+            <div>
+              <p class="mini-label">Ten-benchmark evaluation</p>
+              <h3>Open-source 7B VideoLM comparison.</h3>
+            </div>
+            <p>
+              AVIOT is evaluated at <span class="keep-together"><em>r</em> = 4</span> across ten datasets spanning
+              short, long, egocentric, temporal, and knowledge-intensive video
+              understanding.
+            </p>
+          </div>
+
+          <p class="table-scroll-hint" aria-hidden="true">
+            Swipe horizontally to inspect all ten benchmarks <span>→</span>
+          </p>
+
+          <div
+            id="benchmark-matrix"
+            class="table-region table-region--wide reveal"
+            role="region"
+            aria-label="Open-source 7B VideoLM results across ten benchmarks; scroll horizontally on small screens"
+            tabindex="0"
+          >
+            <table class="benchmark-table benchmark-table--ten">
+              <caption>
+                Published open-source 7B comparison. All scores are percentages;
+                higher is better. Bold denotes best and underline denotes second best.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Model</th>
+                  <th scope="col">Video-MME</th>
+                  <th scope="col">Video-MMMU</th>
+                  <th scope="col">ActivityNet-QA</th>
+                  <th scope="col">NExT-QA</th>
+                  <th scope="col">Perception Test</th>
+                  <th scope="col">TempCompass</th>
+                  <th scope="col">LongVideoBench</th>
+                  <th scope="col">LVBench</th>
+                  <th scope="col">EgoSchema</th>
+                  <th scope="col">MVBench</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">LongVA</th>
+                  <td>52.6</td><td>23.9</td><td>50.0</td><td>68.3</td><td>—</td>
+                  <td>56.9</td><td>—</td><td>—</td><td>—</td><td>—</td>
+                </tr>
+                <tr>
+                  <th scope="row">IXC-2.5</th>
+                  <td>55.8</td><td>—</td><td>52.8</td><td>71.0</td><td>34.4</td>
+                  <td>67.1</td><td>—</td><td>—</td><td>—</td><td class="score-best">69.1</td>
+                </tr>
+                <tr>
+                  <th scope="row">LLaVA-OV</th>
+                  <td>58.2</td><td>33.9</td><td>56.6</td><td>79.4</td><td>57.1</td>
+                  <td>64.8</td><td>56.4</td><td>38.1</td><td class="score-best">60.1</td><td>56.7</td>
+                </tr>
+                <tr>
+                  <th scope="row">Apollo</th>
+                  <td>61.3</td><td>—</td><td>—</td><td>—</td><td>67.3</td>
+                  <td>64.9</td><td class="score-best">58.5</td><td>—</td><td>—</td><td>—</td>
+                </tr>
+                <tr>
+                  <th scope="row">Oryx</th>
+                  <td>58.3</td><td>—</td><td>—</td><td>81.9</td><td>68.6</td>
+                  <td>—</td><td>55.3</td><td>—</td><td>—</td><td class="score-second">63.9</td>
+                </tr>
+                <tr class="baseline-row">
+                  <th scope="row">LLaVA-Video</th>
+                  <td class="score-second">63.3</td><td>36.1</td><td>64.1</td><td class="score-second">83.2</td><td>67.9</td>
+                  <td>66.6</td><td class="score-second">58.2</td><td>44.2</td><td>57.3</td><td>58.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">CoPE</th>
+                  <td>61.9</td><td class="score-second">38.2</td><td class="score-second">64.8</td><td>82.1</td><td class="score-second">70.3</td>
+                  <td class="score-best">68.9</td><td>56.9</td><td class="score-best">46.4</td><td>—</td><td>61.9</td>
+                </tr>
+                <tr class="aviot-row">
+                  <th scope="row">AVIOT · <em>r</em> = 4</th>
+                  <td class="score-best">63.89</td><td class="score-best">39.78</td><td class="score-best">68.23</td><td class="score-best">83.49</td><td class="score-best">71.45</td>
+                  <td class="score-second">68.35</td><td>56.99</td><td class="score-second">45.38</td><td class="score-second">58.14</td><td>61.58</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-footnote table-footnote--ten reveal">
+            IXC-2.5 is <span class="keep-together">InternLM-XComposer-2.5</span>; dashes indicate unreported results. AVIOT uses <span class="keep-together">LLaVA-Video-178K</span>, a smaller training set than most models compared here.
+          </p>
+
+          <div class="ratio-story reveal" id="ratio-analysis">
+            <div class="ratio-copy">
+              <p class="mini-label">Unseen compression ratios</p>
+              <h3>A single checkpoint extends beyond its training interval.</h3>
+              <p>
+                AVIOT is trained with ratios from 2 to 10, while its target
+                cardinality remains adjustable at inference. Across five benchmarks,
+                the mean moves from <strong>64.38</strong> at <span class="keep-together"><em>r</em> = 2</span> to
+                <strong>62.27</strong> at <span class="keep-together"><em>r</em> = 10</span> and
+                <strong>60.74</strong> at the <span class="keep-together">unseen <em>r</em> = 20</span>.
+              </p>
+              <p class="ratio-note">
+                Doubling compression beyond the largest training ratio reduces the
+                mean by 1.53 points, without additional optimization.
+              </p>
+            </div>
+            <figure>
+              <img
+                src="public/assets/figures/ratio-generalization-dark.png"
+                width="717"
+                height="304"
+                loading="lazy"
+                decoding="async"
+                alt="Line chart of retained benchmark score from compression ratio 2 through 20."
+              />
+              <figcaption><span class="caption-copy">Five-benchmark retention across ratios (training limit: <span class="keep-together"><em>r</em> = 10</span>).</span></figcaption>
+            </figure>
+          </div>
+
+          <div
+            id="controlled-results"
+            class="table-region reveal"
+            role="region"
+            aria-label="Controlled 64-frame benchmark results; scroll horizontally on small screens"
+            tabindex="0"
+          >
+            <table>
+              <caption>
+                Controlled 64-frame comparison. Scores are percentages; token
+                retention is relative to the uncompressed visual sequence.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Model / ratio</th>
+                  <th scope="col">Token retention</th>
+                  <th scope="col">ActivityNet-QA</th>
+                  <th scope="col">Perception Test</th>
+                  <th scope="col">MVBench</th>
+                  <th scope="col">Video-MME</th>
+                  <th scope="col">EgoSchema</th>
+                  <th scope="col">Mean</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="baseline-row">
+                  <th scope="row">LLaVA-Video-7B · uncompressed</th>
+                  <td>100.0%</td>
+                  <td>64.10</td>
+                  <td>67.90</td>
+                  <td>58.60</td>
+                  <td>63.30</td>
+                  <td>57.30</td>
+                  <td>62.24</td>
+                </tr>
+                <tr>
+                  <th scope="row">AVIOT · <em>r</em> = 2</th>
+                  <td>50.0%</td>
+                  <td class="better">68.22</td>
+                  <td class="better">71.50</td>
+                  <td class="better">62.20</td>
+                  <td>63.22</td>
+                  <td class="better">57.86</td>
+                  <td class="better">64.60</td>
+                </tr>
+                <tr>
+                  <th scope="row">AVIOT · <em>r</em> = 4</th>
+                  <td>25.0%</td>
+                  <td class="better">67.06</td>
+                  <td class="better">70.72</td>
+                  <td class="better">61.33</td>
+                  <td>60.85</td>
+                  <td>56.33</td>
+                  <td class="better">63.26</td>
+                </tr>
+                <tr>
+                  <th scope="row">AVIOT · <em>r</em> = 10</th>
+                  <td>10.9%</td>
+                  <td class="better">65.67</td>
+                  <td class="better">69.41</td>
+                  <td class="better">58.65</td>
+                  <td>58.26</td>
+                  <td>53.61</td>
+                  <td>61.12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-footnote">
+            Video-MME is reported without subtitles. ActivityNet-QA uses GPT-4o
+            as a semantic judge. This controlled table isolates compression on the
+            same backbone; the ten-benchmark table above reports broader published comparisons.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--white" id="evidence" aria-labelledby="evidence-title">
+        <div class="section-shell">
+          <header class="section-intro section-intro--split reveal">
+            <div>
+              <p class="section-label">04 · Evidence</p>
+              <h2 id="evidence-title">
+                <span class="display-line-wide">Inspect the evidence</span>
+                <span class="display-line-wide">each support preserves.</span>
+              </h2>
+            </div>
+            <p>
+              AVIOT’s coupling exposes where support capacity goes, which spatial
+              branch contributes, and which source frames and tokens construct
+              each support.
+            </p>
+          </header>
+
+          <article class="evidence-story evidence-story--wide">
+            <div class="story-copy reveal">
+              <p class="mini-label">Question-conditioned allocation</p>
+              <h3>The same video produces a different temporal budget.</h3>
+              <p>
+                Asking about the spoon allocates 88.6% of supports to the first
+                three segments. Asking about the prepared food moves 33.0% to the
+                final, food-revealing segment—while the total budget stays fixed.
+              </p>
+              <div class="allocation-pair" role="group" aria-label="Support allocations by question">
+                <span><b>Spoon color</b> 23 · 25 · 30 · 10</span>
+                <span><b>Food type</b> 20 · 20 · 19 · 29</span>
+              </div>
+            </div>
+            <figure class="paper-figure reveal">
+              <img
+                src="public/assets/figures/question-multiscale-paper.png"
+                width="1418"
+                height="625"
+                loading="lazy"
+                decoding="async"
+                alt="Question-dependent support allocation for a baking video and complementary global, medium, and local spatial provenance maps."
+              />
+              <figcaption>
+                <span class="caption-copy caption-copy--provenance">
+                  Provenance mass by path: <span class="keep-together">global 40.1%</span>,
+                  <span class="keep-together">medium 17.9%</span>,
+                  <span class="keep-together">local 42.0%</span>.
+                </span>
+                <a
+                  href="public/assets/figures/question-multiscale-paper.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >Open figure <span aria-hidden="true">↗</span></a>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="evidence-story evidence-story--reverse">
+            <div class="story-copy reveal">
+              <p class="mini-label">Hierarchical provenance</p>
+              <h3>Source-frame and spatial provenance.</h3>
+              <p>
+                The figure traces a final target support to its contributing source
+                frames and spatial positions. Curves report frame-level provenance,
+                while token maps show the unaveraged spatial contributions for each
+                source frame.
+              </p>
+              <p class="provenance-case">
+                <strong>Baby turning.</strong> The curve peaks as the body turn
+                begins, while high-provenance positions follow the face, torso,
+                and moving body as the event unfolds.
+              </p>
+              <p class="provenance-case">
+                <strong>Phone, then glasses.</strong> One support peaks when the
+                man looks at his phone and again when he removes his glasses.
+                The token maps localize both contributions, showing how the support
+                integrates disjoint temporal windows to resolve event order.
+              </p>
+            </div>
+            <figure class="paper-figure reveal">
+              <img
+                src="public/assets/figures/hierarchical-provenance-paper.png"
+                width="1275"
+                height="808"
+                loading="lazy"
+                decoding="async"
+                alt="Frame-level and visual-token provenance for a baby turning and a man looking at a phone before removing his glasses."
+              />
+              <figcaption>
+                <span class="caption-copy">
+                  Frame- and token-level provenance in two temporal-reasoning cases.
+                </span>
+                <a
+                  href="public/assets/figures/hierarchical-provenance-paper.png"
+                  target="_blank"
+                  rel="noreferrer"
+                >Open figure <span aria-hidden="true">↗</span></a>
+              </figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--paper" id="citation" aria-labelledby="citation-title">
+        <div class="section-shell citation-layout">
+          <div class="citation-copy reveal">
+            <p class="section-label">05 · Citation</p>
+            <h2 id="citation-title">Citation.</h2>
+            <p>
+              If you find AVIOT useful in your research, please cite our paper.
+            </p>
+            <div class="citation-actions">
+              <a
+                class="button button--dark"
+                href="https://github.com/ernie-research/AVIOT"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub repository <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                class="text-link"
+                href="https://arxiv.org/pdf/2608.20473"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Download paper <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="bibtex-card reveal">
+            <div class="bibtex-head">
+              <span>BibTeX</span>
+              <button class="copy-button" type="button" data-copy-citation>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <rect x="6.5" y="6.5" width="9" height="9" rx="1.5" />
+                  <path d="M4.5 13.5h-.25A1.75 1.75 0 0 1 2.5 11.75v-7.5A1.75 1.75 0 0 1 4.25 2.5h7.5A1.75 1.75 0 0 1 13.5 4.25v.25" />
+                </svg>
+                <span data-copy-label>Copy</span>
+              </button>
+            </div>
+            <pre><code id="bibtex">@misc{yin2026aggregatingvisualinformationoptimal,
+  title         = {Aggregating Visual Information with Optimal
+                   Transport for VideoLM Token Compression},
+  author        = {Wenti Yin and Xiaotian Han and Junyuan Shang
+                   and Yuchen Ding and Shuohuan Wang and Dianhai Yu
+                   and Changxin Gao and Nong Sang},
+  year          = {2026},
+  eprint        = {2608.20473},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2608.20473}
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="section-shell author-block reveal">
+          <p class="section-label">Authors</p>
+          <ul class="author-list">
+            <li>Wenti Yin<sup>1,2</sup></li>
+            <li>Xiaotian Han<sup>2</sup><small>Project lead</small></li>
+            <li>Junyuan Shang<sup>2</sup></li>
+            <li>Yuchen Ding<sup>2</sup></li>
+            <li>Shuohuan Wang<sup>2</sup></li>
+            <li>Dianhai Yu<sup>2</sup></li>
+            <li>Changxin Gao<sup>1</sup></li>
+            <li>Nong Sang<sup>1</sup><small>Corresponding author</small></li>
+          </ul>
+          <div class="author-affiliations">
+            <p class="affiliation-detail">
+              <span class="affiliation-unit"><sup>1</sup> Key Laboratory of Image Processing and Intelligent Control, School of Artificial Intelligence and Automation, Huazhong University of Science and Technology</span>
+              <span class="affiliation-separator" aria-hidden="true">·</span>
+              <span class="affiliation-unit"><sup>2</sup> Baidu, Inc.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-shell">
+        <div>
+          <a class="brand brand--footer" href="#top">
+            <img class="brand-mark" src="public/assets/brand/favicon.svg" width="24" height="24" alt="" aria-hidden="true" />
+            <span>AVIOT</span>
+          </a>
+          <p>Compact, question-aware, and traceable video evidence.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://arxiv.org/abs/2608.20473" target="_blank" rel="noreferrer">Paper</a>
+          <a href="https://github.com/ernie-research/AVIOT" target="_blank" rel="noreferrer">Code</a>
+          <a href="#citation">Citation</a>
+        </div>
+        <p class="footer-note">Research project page · 2026</p>
+      </div>
+    </footer>
+  </body>
+</html>

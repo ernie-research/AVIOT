@@ -1,0 +1,38 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+An 8-minute video becomes 224 sampled observations.
+
+00:00:06.000 --> 00:00:11.000
+The question defines what evidence matters.
+
+00:00:11.000 --> 00:00:19.000
+Question-conditioned Optimal Transport couples 224
+observations to 28 compact supports.
+
+00:00:19.000 --> 00:00:22.500
+The global Optimal Transport path models broad
+whole-frame correspondence.
+
+00:00:22.500 --> 00:00:26.000
+The medium Optimal Transport path resolves coarse
+three-by-three regional correspondence.
+
+00:00:26.000 --> 00:00:29.500
+The local Optimal Transport path resolves fine
+actor-and-object correspondence.
+
+00:00:29.500 --> 00:00:33.000
+Global, medium, and local Optimal Transport paths
+construct the same feature support.
+
+00:00:33.000 --> 00:00:40.000
+Support 24 traces back to real evidence at 335.73
+seconds.
+
+00:00:40.000 --> 00:00:44.000
+The language model decodes the question and 28 supports:
+installing wooden boards.
+
+00:00:44.000 --> 00:00:46.000
+AVIOT: compact, traceable video evidence.
