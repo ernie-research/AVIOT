@@ -6,9 +6,61 @@ from pathlib import Path
 from typing import Any, Mapping, Optional
 
 import torch
+from huggingface_hub import snapshot_download
 from transformers import AutoTokenizer
 
 from .qwen import AVIOTQwenConfig, AVIOTQwenForCausalLM
+
+
+_REQUIRED_CHECKPOINT_FILES = (
+    "config.json",
+    "model.safetensors.index.json",
+    "tokenizer_config.json",
+    "vision_tower/config.json",
+    "vision_tower/preprocessor_config.json",
+)
+
+
+def resolve_checkpoint(
+    checkpoint: str | Path,
+    *,
+    local_files_only: bool = False,
+) -> str:
+    """Resolve a local AVIOT directory or download a Hugging Face snapshot."""
+    raw_checkpoint = str(checkpoint)
+    local_path = Path(raw_checkpoint).expanduser()
+    if local_path.is_dir():
+        resolved = local_path.resolve()
+    else:
+        if local_path.exists():
+            raise NotADirectoryError(
+                f"AVIOT checkpoint must be a directory: {local_path}"
+            )
+        if (
+            local_path.is_absolute()
+            or raw_checkpoint.startswith(("./", "../", "~"))
+        ):
+            raise FileNotFoundError(
+                f"AVIOT checkpoint directory does not exist: {local_path}"
+            )
+        resolved = Path(
+            snapshot_download(
+                repo_id=raw_checkpoint,
+                repo_type="model",
+                local_files_only=local_files_only,
+            )
+        ).resolve()
+
+    missing = [
+        relative_path
+        for relative_path in _REQUIRED_CHECKPOINT_FILES
+        if not (resolved / relative_path).is_file()
+    ]
+    if missing:
+        raise RuntimeError(
+            f"incomplete AVIOT checkpoint at {resolved}: missing {missing}"
+        )
+    return str(resolved)
 
 
 def load_config(
@@ -41,7 +93,7 @@ def load_config(
 
 
 def load_pretrained_model(
-    checkpoint: str,
+    checkpoint: str | Path,
     *,
     tokenizer_path: Optional[str] = None,
     device: str = "cuda",
@@ -61,16 +113,21 @@ def load_pretrained_model(
     }.get(str(torch_dtype).lower())
     if dtype is None:
         raise ValueError(f"unsupported torch_dtype={torch_dtype!r}")
+    checkpoint = resolve_checkpoint(
+        checkpoint,
+        local_files_only=local_files_only,
+    )
     config = load_config(
         checkpoint,
         overrides=config_overrides,
-        local_files_only=local_files_only,
+        local_files_only=True,
     )
-    config.local_files_only = bool(local_files_only)
+    config.local_files_only = True
+    tokenizer_source = tokenizer_path or checkpoint
     tokenizer = AutoTokenizer.from_pretrained(
-        tokenizer_path or checkpoint,
+        tokenizer_source,
         use_fast=False,
-        local_files_only=local_files_only,
+        local_files_only=True if tokenizer_path is None else local_files_only,
     )
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.unk_token or tokenizer.eos_token
@@ -84,7 +141,7 @@ def load_pretrained_model(
         torch_dtype=dtype,
         device_map=device_map,
         attn_implementation=attn_implementation,
-        local_files_only=local_files_only,
+        local_files_only=True,
         output_loading_info=True,
     )
     failures = {

@@ -22,6 +22,7 @@ dependencies = [
   "accelerate>=1.0,<2",
   "av>=12,<17",
   "decord>=0.6,<0.7",
+  "huggingface-hub>=0.34,<1",
   "numpy>=1.24,<3",
   "opencv-python-headless>=4.8,<5",
   "Pillow>=10,<13",

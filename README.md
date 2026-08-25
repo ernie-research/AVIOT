@@ -6,10 +6,13 @@ Aggregating Visual Information with Optimal Transport for VideoLM Token Compress
 
 <p align="center">
   <a href="https://ernie-research.github.io/AVIOT/">
-    <img src="https://img.shields.io/badge/Project-Page-2ea44f.svg" alt="Project Page"/>
+    <img src="https://img.shields.io/badge/Homepage-Project%20Page-1f6feb.svg" alt="AVIOT Homepage"/>
   </a>
   <a href="https://arxiv.org/abs/2608.20473">
     <img src="https://img.shields.io/badge/Paper-arXiv%3A2608.20473-b31b1b.svg" alt="arXiv Paper"/>
+  </a>
+  <a href="https://huggingface.co/ernie-research/AVIOT">
+    <img src="https://img.shields.io/badge/Model-%F0%9F%A4%97%20AVIOT-ffd21e.svg" alt="Hugging Face Model"/>
   </a>
 </p>
 
@@ -51,7 +54,7 @@ https://github.com/user-attachments/assets/e004aaf0-c72d-4c1b-be35-529d21cc362a
 ## 📌 TODO
 
 - [x] Release the AVIOT paper.
-- [ ] Release the AVIOT model weights.
+- [x] Release the AVIOT model weights.
 
 ## 🛠️ Environment
 
@@ -91,6 +94,11 @@ checkpoints/aviot/
 ```
 
 No additional visual checkpoint or preparation step is required.
+
+The released checkpoint is published at
+[`ernie-research/AVIOT`](https://huggingface.co/ernie-research/AVIOT). Every `--checkpoint`
+argument accepts either a local directory or this Hugging Face repository ID, which is
+downloaded and cached on first use.
 
 ## 📂 Data Preparation
 
