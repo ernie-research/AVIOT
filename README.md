@@ -5,6 +5,9 @@ Aggregating Visual Information with Optimal Transport for VideoLM Token Compress
 </h2>
 
 <p align="center">
+  <a href="https://ernie-research.github.io/AVIOT/">
+    <img src="https://img.shields.io/badge/Project-Page-2ea44f.svg" alt="Project Page"/>
+  </a>
   <a href="https://arxiv.org/abs/2608.20473">
     <img src="https://img.shields.io/badge/Paper-arXiv%3A2608.20473-b31b1b.svg" alt="arXiv Paper"/>
   </a>
