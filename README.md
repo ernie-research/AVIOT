@@ -220,7 +220,3 @@ If you find AVIOT useful in your research, please cite our paper:
 
 Code and the separately distributed AVIOT checkpoint are released under the Apache License 2.0.
 Datasets are governed by their respective terms. See `NOTICE` for attribution.
-
-## ⭐ Star
-
-If you find this repository useful, please consider starring it.
